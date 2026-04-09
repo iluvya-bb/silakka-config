@@ -1,4 +1,5 @@
 /* lily58_right.overlay */
+#include <dt-bindings/zmk/matrix_transform.h>
 
 &pro_micro_spi {
     status = "okay";
@@ -8,6 +9,7 @@
     nice_view_spi: &pro_micro_spi {};
 };
 
+/* The offset is critical for the right half keys to map correctly */
 &default_transform {
     col-offset = <6>;
 };
