@@ -1,0 +1,3 @@
+/ {
+    nice_view_spi: &pro_micro_spi {};
+};
