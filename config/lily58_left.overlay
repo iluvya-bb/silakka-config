@@ -1,28 +1,28 @@
 /* lily58_left.overlay */
 #include <dt-bindings/zmk/matrix_transform.h>
 
-/* 1. Wake up the SPI bus for the screen */
+/* 1. Wake up the SPI bus */
 &pro_micro_spi {
     status = "okay";
 };
 
-/* 2. Map the screen to the SPI pins */
-/ {
-    nice_view_spi: &pro_micro_spi {};
-};
+/* 2. Create the label the screen shield needs */
+/* NOTE: This must be OUTSIDE of any / { } block */
+nice_view_spi: &pro_micro_spi {};
 
-/* 3. Your Column Pins (Standard Lily58) */
+/* 3. Matrix configuration */
 &kscan0 {
     col-gpios
-        = <&pro_micro 19 GPIO_ACTIVE_HIGH
-           &pro_micro 18 GPIO_ACTIVE_HIGH
-           &pro_micro 15 GPIO_ACTIVE_HIGH
-           &pro_micro 14 GPIO_ACTIVE_HIGH
-           &pro_micro 16 GPIO_ACTIVE_HIGH
-           &pro_micro 10 GPIO_ACTIVE_HIGH>;
+        = <&pro_micro 19 GPIO_ACTIVE_HIGH>
+        , <&pro_micro 18 GPIO_ACTIVE_HIGH>
+        , <&pro_micro 15 GPIO_ACTIVE_HIGH>
+        , <&pro_micro 14 GPIO_ACTIVE_HIGH>
+        , <&pro_micro 16 GPIO_ACTIVE_HIGH>
+        , <&pro_micro 10 GPIO_ACTIVE_HIGH>
+        ;
 };
 
-/* 4. Enable the encoder */
+/* 4. Encoder */
 &left_encoder {
     status = "okay";
 };
