@@ -4,7 +4,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-#include <boards/shields/lily58/lily58.dtsi>
+#include <dt-bindings/zmk/matrix_transform.h>
+#include <../boards/shields/lily58/lily58.dtsi>
 
 // 1. Enable SPI for the right-side display
 &pro_micro_spi {
