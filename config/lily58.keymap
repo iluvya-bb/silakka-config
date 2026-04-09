@@ -3,7 +3,7 @@
 #include <dt-bindings/zmk/bt.h>
 
 &nice_view_spi {
-    cs-gpios = <&pro_micro 10 GPIO_ACTIVE_HIGH>;
+    cs-gpios = <&gpio0 31 GPIO_ACTIVE_HIGH>;
 };
 
 // --- LAYER DEFINITIONS ---
