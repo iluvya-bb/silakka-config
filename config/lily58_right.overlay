@@ -1,18 +1,9 @@
-/*
- * Copyright (c) 2020 Pete Johanson
- *
- * SPDX-License-Identifier: MIT
- */
+/* lily58_right.overlay */
 
-#include <dt-bindings/zmk/matrix_transform.h>
-#include <../boards/shields/lily58/lily58.dtsi>
-
-// 1. Enable SPI for the right-side display
 &pro_micro_spi {
     status = "okay";
 };
 
-// 2. Create the alias so the nice!view shield finds the pins
 / {
     nice_view_spi: &pro_micro_spi {};
 };
@@ -23,11 +14,10 @@
 
 &kscan0 {
     col-gpios
-        = <&pro_micro 10 GPIO_ACTIVE_HIGH>
-        , <&pro_micro 16 GPIO_ACTIVE_HIGH>
-        , <&pro_micro 14 GPIO_ACTIVE_HIGH>
-        , <&pro_micro 15 GPIO_ACTIVE_HIGH>
-        , <&pro_micro 18 GPIO_ACTIVE_HIGH>
-        , <&pro_micro 19 GPIO_ACTIVE_HIGH>
-        ;
+        = <&pro_micro 10 GPIO_ACTIVE_HIGH
+           &pro_micro 16 GPIO_ACTIVE_HIGH
+           &pro_micro 14 GPIO_ACTIVE_HIGH
+           &pro_micro 15 GPIO_ACTIVE_HIGH
+           &pro_micro 18 GPIO_ACTIVE_HIGH
+           &pro_micro 19 GPIO_ACTIVE_HIGH>;
 };
