@@ -6,6 +6,16 @@
 
 #include "lily58.dtsi"
 
+// 1. Enable SPI for the right-side display
+&pro_micro_spi {
+    status = "okay";
+};
+
+// 2. Create the alias so the nice!view shield finds the pins
+/ {
+    nice_view_spi: &pro_micro_spi {};
+};
+
 &default_transform {
     col-offset = <6>;
 };

@@ -6,6 +6,16 @@
 
 #include "lily58.dtsi"
 
+// 1. Enable the SPI bus for the display
+&pro_micro_spi {
+    status = "okay";
+};
+
+// 2. Map the SPI bus to the name the nice!view shield expects
+/ {
+    nice_view_spi: &pro_micro_spi {};
+};
+
 &kscan0 {
     col-gpios
         = <&pro_micro 19 GPIO_ACTIVE_HIGH>
