@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-#include "lily58.dtsi"
+#include <boards/shields/lily58/lily58.dtsi>
 
 // 1. Enable SPI for the right-side display
 &pro_micro_spi {
