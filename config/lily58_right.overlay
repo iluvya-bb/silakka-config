@@ -1,12 +1,6 @@
 /* lily58_right.overlay */
 #include <dt-bindings/zmk/matrix_transform.h>
 
-&pro_micro_spi {
-    status = "okay";
-};
-
-nice_view_spi: &pro_micro_spi {};
-
 &default_transform {
     col-offset = <6>;
 };
