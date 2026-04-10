@@ -1,9 +1,22 @@
-/* lily58_left.overlay */
 #include <dt-bindings/zmk/matrix_transform.h>
 
-/* We don't define SPI here because nice_view_adapter does it for us */
+/* Wake up the SPI bus for the nice!view */
+&pro_micro_spi {
+    status = "okay";
+};
+
+/* Bridge the SPI for the shield */
+nice_view_spi: &pro_micro_spi {};
 
 &kscan0 {
+    row-gpios
+        = <&pro_micro 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+        , <&pro_micro 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+        , <&pro_micro 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+        , <&pro_micro 7 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+        , <&pro_micro 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+        ;
+
     col-gpios
         = <&pro_micro 19 GPIO_ACTIVE_HIGH>
         , <&pro_micro 18 GPIO_ACTIVE_HIGH>
