@@ -4,8 +4,6 @@
     status = "okay";
 };
 
-nice_view_spi: &pro_micro_spi {};
-
 &default_transform {
     col-offset = <6>;
 };
