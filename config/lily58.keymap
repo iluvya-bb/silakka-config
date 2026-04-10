@@ -6,7 +6,7 @@
 #define QWE 1  
 #define NAV 2  
 #define SYM 3  
-#define BT  4  
+#define BT:  4  
 
 / {
     combos {
@@ -23,7 +23,7 @@
         combo_bt_layer {
             timeout-ms = <50>;
             key-positions = <34 53>; // Updated for 58-key index
-            bindings = <&mo BT>;
+            bindings = <&mo BTL>;
         };
     };
 
