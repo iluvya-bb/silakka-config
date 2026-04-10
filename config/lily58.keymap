@@ -6,7 +6,7 @@
 #define QWE 1  
 #define NAV 2  
 #define SYM 3  
-#define BT:  4  
+#define BTL 4  
 
 / {
     combos {
