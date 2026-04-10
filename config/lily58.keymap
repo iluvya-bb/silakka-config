@@ -7,7 +7,7 @@
 #define QWE 1  
 #define NAV 2  
 #define SYM 3  
-#define BT  4  
+#define BTL 4  
 
 / {
     combos {
@@ -24,7 +24,7 @@
         combo_bt_layer {
             timeout-ms = <50>;
             key-positions = <34 53>; // Updated for 58-key index
-            bindings = <&mo BT>;
+            bindings = <&mo BTL>;
         };
     };
 
@@ -87,7 +87,7 @@
             >;
         };
 		// 4: BLUETOOTH
-        bt_layer {
+        btl_layer {
             bindings = <
             // Notice the &ext_power EP_TOG right next to &bootloader!
             &bootloader &ext_power EP_TOG &trans       &trans       &trans       &trans        &trans &trans     &trans       &trans       &trans     &bt BT_CLR
