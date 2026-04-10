@@ -1,0 +1,4 @@
+&nice_view_spi {
+    /* Overrides the default adapter pin and routes CS to Pro Micro Pin 10 */
+    cs-gpios = <&gpio0 31 GPIO_ACTIVE_HIGH>;
+};
