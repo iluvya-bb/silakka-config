@@ -1,4 +1,5 @@
 #include <behaviors.dtsi>
+#include <dt-bindings/zmk/ext_power.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 
@@ -85,16 +86,17 @@
             &none &none &trans &trans &trans                                      &trans &trans &trans &none &none
             >;
         };
-
-        // 4: BLUETOOTH
+		// 4: BLUETOOTH
         bt_layer {
             bindings = <
-            &bootloader &trans       &trans       &trans       &trans       &trans        &trans &trans     &trans       &trans       &trans     &bt BT_CLR
-            &sys_reset  &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4  &trans &trans     &trans       &trans       &trans     &sys_reset
-            &trans      &trans       &trans       &trans       &trans       &trans        &trans &kp C_PREV &kp C_VOL_DN &kp C_VOL_UP &kp C_NEXT &trans
-            &trans      &trans       &trans       &trans       &trans       &trans        &trans &trans     &kp C_MUTE   &kp C_PP     &trans     &trans
-            &none &none &trans &trans &trans                                              &trans &trans &trans &none &none
+            // Notice the &ext_power EP_TOG right next to &bootloader!
+            &bootloader &ext_power EP_TOG &trans       &trans       &trans       &trans        &trans &trans     &trans       &trans       &trans     &bt BT_CLR
+            &sys_reset  &bt BT_SEL 0      &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4  &trans &trans     &trans       &trans       &trans     &sys_reset
+            &trans      &trans            &trans       &trans       &trans       &trans        &trans &kp C_PREV &kp C_VOL_DN &kp C_VOL_UP &kp C_NEXT &trans
+            &trans      &trans            &trans       &trans       &trans       &trans        &trans &trans     &kp C_MUTE   &kp C_PP     &trans     &trans
+            &none &none &trans &trans &trans                                                   &trans &trans &trans &none &none
             >;
         };
+
     };
 };
