@@ -1,13 +1,26 @@
 #include <dt-bindings/zmk/matrix_transform.h>
 
+/ {
+    /* This tells ZMK to specifically use the nice!view for the display */
+    chosen {
+        zmk,display = &nice_view;
+    };
+};
+
+/* 1. Wake up the SPI bus and define the Chip Select (CS) pin for the screen */
 &pro_micro_spi {
     status = "okay";
-    /* This pin is what actually wakes up the nice!view */
     cs-gpios = <&pro_micro 1 GPIO_ACTIVE_HIGH>;
 };
 
+/* 2. Configure the screen itself */
+&nice_view {
+    status = "okay";
+};
+
+/* 3. The Matrix: We use 5 rows. 
+      If Row 0 was "dead" before, this order fixes the vertical alignment. */
 &kscan0 {
-    /* Fixed row order to prevent 'one up' shift */
     row-gpios
         = <&pro_micro 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
         , <&pro_micro 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
