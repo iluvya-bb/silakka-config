@@ -24,14 +24,16 @@
     combos {
         compatible = "zmk,combos";
 
-        // Press A + O together to toggle QWERTY
+        // Press the two INNER top-row keys together (positions 17+18 = ',' + '.'
+        // on Dvorak, where QWERTY 'T' + 'Y' sit) to toggle the QWERTY layer.
         combo_toggle_qwerty {
             timeout-ms = <50>;
-            key-positions = <17 18>; 
+            key-positions = <17 18>;
             bindings = <&tog QWE>;
         };
 
-        // Press S + Enter (Bottom Right) to access Bluetooth Layer
+        // Press the two OUTERMOST thumb keys together (positions 50+57 = the left
+        // Esc/Alt thumb + the right Alt thumb) to reach the Bluetooth/System layer.
         combo_bt_layer {
             timeout-ms = <50>;
             key-positions = <50 57>;
