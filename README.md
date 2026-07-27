@@ -12,7 +12,7 @@ animated nice!view UI, and a QWERTY fallback for gaming.
 - [How it works](#how-it-works): [home-row mods](#home-row-mods) ·
   [thumb keys](#thumb-keys) · [combos](#combos) · [key positions](#key-positions)
 - [Host integration (Hyprland)](#host-integration-hyprland) — which desktop
-  shortcuts this board can and can't send, and why
+  shortcuts this board can and can't send, and why — plus tmux
 - [Firmware config](#firmware-config) · [Building & flashing](#building--flashing)
 - [Tuning & troubleshooting](#tuning--troubleshooting)
 
@@ -135,9 +135,9 @@ are plain `Space`/`Bspc` here. Toggle back to `DVO` (same combo) to get them.
 +-------+-------+-------+-------+-------+-------+                     +-------+-------+-------+-------+-------+-------+
 |  F1   |  F2   |  F3   |  F4   |  F5   |  F6   |                     |  F7   |  F8   |  F9   |  F10  |  F11  |  F12  |
 +-------+-------+-------+-------+-------+-------+                     +-------+-------+-------+-------+-------+-------+
-|   ▽   |   ▽   |PrvTab |NxtTab |   ▽   |   ▽   |                     | Home  | PgDn  | PgUp  |  End  |   ▽   |   ▽   |
+|   ▽   |NewTab |PrvTab |NxtTab |ClsTab |   ▽   |                     | Home  | PgDn  | PgUp  |  End  |Reopen |   ▽   |
 +-------+-------+-------+-------+-------+-------+                     +-------+-------+-------+-------+-------+-------+
-| Shift |  GUI  |  Alt  | Ctrl  | Shift |   ▽   |                     | Left  | Down  |  Up   | Right |   :   |   ▽   |
+| Shift |  GUI  |  Alt  | Ctrl  | Shift |   ▽   |                     | Left  | Down  |  Up   | Right |   :   |UrlBar |
 +-------+-------+-------+-------+-------+-------+-------+     +-------+-------+-------+-------+-------+-------+-------+
 |   ▽   | Undo  |  Cut  | Copy  | Paste |   ▽   |   ▪   |     |   ▪   |Swap L |Swap D |Swap U |Swap R |   ?   |   ▽   |
 +-------+-------+-------+-------+-------+-------+-------+     +-------+-------+-------+-------+-------+-------+-------+
@@ -161,7 +161,25 @@ The layout is hand-split by role: **right hand navigates, left hand modifies**.
   > will then force it to a tap mid-chord — that's what broke `Alt+Shift+Right`
   > until `U` was bound explicitly.
 - Left bottom row is the clipboard cluster: `Ctrl+Z / X / C / V`.
-- `PrvTab`/`NxtTab` are `Ctrl+Shift+Tab` and `Ctrl+Tab`.
+- **Row 1 is the browser/tab cluster**, built around the two tab-cycle keys:
+
+  | Key | Binding | Sends | Effect (Firefox/Zen) |
+  |-----|---------|-------|----------------------|
+  | `NewTab` | `&kp LC(T)` | `Ctrl+T` | New tab |
+  | `PrvTab` | `&kp LC(LS(TAB))` | `Ctrl+Shift+Tab` | Previous tab |
+  | `NxtTab` | `&kp LC(TAB)` | `Ctrl+Tab` | Next tab |
+  | `ClsTab` | `&kp LC(W)` | `Ctrl+W` | Close tab |
+  | `Reopen` | `&kp LC(LS(T))` | `Ctrl+Shift+T` | Reopen last closed tab |
+  | `UrlBar` | `&kp LC(L)` | `Ctrl+L` | Focus the address bar |
+
+  Cycle in the middle, create and destroy on either side of it. These are plain
+  keycodes, so they fire in **any** application — `Ctrl+W` still closes a tab in
+  the browser but deletes a word in a shell, and `Ctrl+L` clears a terminal. That
+  is the intended behaviour, but worth knowing before you reach for them blind.
+
+  Free NAV positions if you want more: 12, 17, 23, 29, 36, 41, 49. Move-tab-left
+  and move-tab-right (`&kp LC(LS(PG_UP))` / `LC(LS(PG_DN))`) would sit naturally
+  at 12 and 17, bracketing the cluster.
 - **Right bottom row is window management**, sitting directly under the arrows —
   same finger, one row down, moves the *window* instead of the cursor. Each key
   emits the whole chord by itself:
@@ -432,6 +450,47 @@ would restore it. (QWE is unaffected; it has a real Tab at position 12.)
 Mongolian layout requires Caps Lock — and there is no Caps Lock in any layer.
 Either add `&kp CAPS` (the BTL layer has free positions) or change `kb_options`
 to a chord this board can actually send.
+
+### tmux
+
+`~/.tmux.conf`, prefix `C-a`.
+
+**Press the prefix with the right inner thumb, not the left home row.** `Ctrl` on
+the left home row is `E`@27 and `A` is @25 — same hand, so the positional rule
+refuses it and you get `ea` typed into the pane. Right-hand `Ctrl` (`T`@32) works
+positionally, but `hmr` carries `require-prior-idle-ms = 150`, so firing the
+prefix immediately after typing forces a tap and yields a literal `t`. The thumb's
+`&mt` has neither an idle guard nor a positional rule, so it is the only source
+that is reliable every time — which matters for the most-pressed chord you own.
+
+**Pane navigation is `d h t n`, not `h j k l`.** Those are the physical keys where
+QWERTY's `hjkl` sit, so the finger pattern is vim's even though the letters
+differ. The literal letters scatter across both hands on Dvorak:
+
+| vim key | Dvorak position | | Dvorak key | Position |
+|---------|----------------|---|-----------|----------|
+| `h` | @31 right home, index | | `d` | @30 |
+| `j` | @38 **left bottom** | | `h` | @31 |
+| `k` | @39 **left bottom** | | `t` | @32 |
+| `l` | @21 right top, ring | | `n` | @33 |
+
+Resizing follows the same keys shifted (`D H T N`). That also makes the modifier
+consistent: all four are right-hand, so all four take the **left** Shift. Under
+`H J K L`, `H`/`L` wanted left Shift while `J`/`K` wanted right Shift or the thumb.
+
+> `d`, `t` and `n` shadow tmux defaults — `detach-client`, `clock-mode` and
+> `next-window`. Detach and next-window are re-homed to `prefix C-d` and
+> `prefix C-n`; `prefix p` is still `previous-window`. Note that `source-file`
+> never *un*binds, so after editing pane binds a running server keeps the old
+> ones until you unbind them by hand or restart the server.
+
+**`bind |` needs the SYM layer** — `|` exists only at SYM@25, so a horizontal
+split is prefix → SYM thumb + key. `\` is a plain base-layer key at DVO@24 and is
+bound as an alias for the same split.
+
+Window navigation is `S-Left`/`S-Right` with no prefix. Those work only because
+NAV binds `Shift` explicitly; before that fix they failed the same way
+`Alt+Shift+<arrow>` did.
 
 ### Window management
 

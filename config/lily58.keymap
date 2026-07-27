@@ -122,12 +122,16 @@
             display-name = "NAV";
             bindings = <
             &kp F1     &kp F2       &kp F3          &kp F4      &kp F5     &kp F6             &kp F7    &kp F8    &kp F9    &kp F10   &kp F11   &kp F12
-            &trans     &trans       &kp LC(LS(TAB)) &kp LC(TAB) &trans     &trans             &kp HOME  &kp PG_DN &kp PG_UP &kp END   &trans    &trans
+            // Browser/tab cluster. Left row 1 wraps the two tab-cycle keys with
+            // new (C-t) and close (C-w); reopen-closed (C-S-t) and the address
+            // bar (C-l, on row 2) sit on the right. These are plain keycodes, so
+            // they fire in any app, not just the browser.
+            &trans     &kp LC(T)    &kp LC(LS(TAB)) &kp LC(TAB) &kp LC(W)  &trans             &kp HOME  &kp PG_DN &kp PG_UP &kp END   &kp LC(LS(T)) &trans
             // Shift is bound twice on purpose: the outer column keeps the old pinky
             // position, and index-finger 'U' now matches where Shift lives on DVO.
             // Leaving 'U' as &trans made it fall through to &hml LSHFT U, whose
             // require-prior-idle-ms forced a tap mid-chord (Alt+Shift+arrow misfired).
-            &kp LSHFT  &kp LGUI     &kp LALT        &kp LCTRL   &kp LSHFT  &trans             &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT &kp COLON &trans
+            &kp LSHFT  &kp LGUI     &kp LALT        &kp LCTRL   &kp LSHFT  &trans             &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT &kp COLON &kp LC(L)
             // Right bottom row = window management, sitting directly under the
             // arrows: same finger, one row down, moves the window instead of the
             // cursor. Each key emits the whole Alt+Shift+arrow chord on its own
