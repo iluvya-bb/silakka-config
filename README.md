@@ -484,6 +484,35 @@ consistent: all four are right-hand, so all four take the **left** Shift. Under
 > never *un*binds, so after editing pane binds a running server keeps the old
 > ones until you unbind them by hand or restart the server.
 
+**`C-b` is a second prefix for QWERTY.** Six of the eight nav letters are
+unambiguous, but `h` is not — Dvorak needs it for *down*, QWERTY for *left* — so
+the two sets cannot share one key table:
+
+| Direction | Dvorak sends | QWERTY sends |
+|-----------|--------------|--------------|
+| left | `d` | `h` |
+| down | `h` | `j` |
+| up | `t` | `k` |
+| right | `n` | `l` |
+
+`C-a` therefore keeps the Dvorak set, and `C-b` switches into a separate `qwerty`
+key table holding canonical `hjkl` (plus `HJKL` resize and the essentials — `c`,
+splits, `d`, `n`, `p`, `z`, `r`). Use it when the board is on its QWERTY layer, or
+on any normal keyboard.
+
+Note that tmux's `prefix2` option cannot do this: a second prefix key still enters
+the *same* `prefix` table, so it can't carry different bindings. A genuine second
+prefix needs a root binding into a custom table:
+
+```tmux
+bind -n C-b switch-client -T qwerty
+bind -T qwerty h select-pane -L
+```
+
+> The `-n` makes `C-b` global, so vim's page-up no longer reaches the pane.
+> `C-b C-b` sends a literal `C-b` to get it back. Changing the prefix key is a
+> one-line edit to the `bind -n` line.
+
 **`bind |` needs the SYM layer** — `|` exists only at SYM@25, so a horizontal
 split is prefix → SYM thumb + key. `\` is a plain base-layer key at DVO@24 and is
 bound as an alias for the same split.
