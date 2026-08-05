@@ -135,7 +135,7 @@ are plain `Space`/`Bspc` here. Toggle back to `DVO` (same combo) to get them.
 +-------+-------+-------+-------+-------+-------+                     +-------+-------+-------+-------+-------+-------+
 |  F1   |  F2   |  F3   |  F4   |  F5   |  F6   |                     |  F7   |  F8   |  F9   |  F10  |  F11  |  F12  |
 +-------+-------+-------+-------+-------+-------+                     +-------+-------+-------+-------+-------+-------+
-|   ▽   |NewTab |PrvTab |NxtTab |ClsTab |   ▽   |                     | Home  | PgDn  | PgUp  |  End  |Reopen |   ▽   |
+|   ▽   |NewTab |PrvTab |NxtTab |ClsTab |   ▽   |                     | Home  | PgDn  | PgUp  |  End  |Reopen | CAPS  |
 +-------+-------+-------+-------+-------+-------+                     +-------+-------+-------+-------+-------+-------+
 | Shift |  GUI  |  Alt  | Ctrl  | Shift |   ▽   |                     | Left  | Down  |  Up   | Right |   :   |UrlBar |
 +-------+-------+-------+-------+-------+-------+-------+     +-------+-------+-------+-------+-------+-------+-------+
@@ -161,6 +161,11 @@ The layout is hand-split by role: **right hand navigates, left hand modifies**.
   > will then force it to a tap mid-chord — that's what broke `Alt+Shift+Right`
   > until `U` was bound explicitly.
 - Left bottom row is the clipboard cluster: `Ctrl+Z / X / C / V`.
+- **`CAPS` (position 23) is the layout switch.** `conf/keyboard.conf` sets
+  `kb_options = grp:caps_toggle`, which makes Caps Lock send `ISO_Next_Group` —
+  so this key is what flips `us` ⇄ `mn`. Actual Caps Lock is still available as
+  `Shift+CAPS`, and because NAV binds `Shift` as a plain `&kp` at 24 and 28, that
+  chord is cross-hand and never touches the base layer's positional rules.
 - **Row 1 is the browser/tab cluster**, built around the two tab-cycle keys:
 
   | Key | Binding | Sends | Effect (Firefox/Zen) |
@@ -177,7 +182,7 @@ The layout is hand-split by role: **right hand navigates, left hand modifies**.
   the browser but deletes a word in a shell, and `Ctrl+L` clears a terminal. That
   is the intended behaviour, but worth knowing before you reach for them blind.
 
-  Free NAV positions if you want more: 12, 17, 23, 29, 36, 41, 49. Move-tab-left
+  Free NAV positions if you want more: 12, 17, 29, 36, 41, 49. Move-tab-left
   and move-tab-right (`&kp LC(LS(PG_UP))` / `LC(LS(PG_DN))`) would sit naturally
   at 12 and 17, bracketing the cluster.
 - **Right bottom row is window management**, sitting directly under the arrows —
@@ -445,11 +450,11 @@ key gives you the NAV layer, not a held Tab. You can tap-cycle one window at a
 time, but never hold to scroll through them. A dedicated `&kp TAB` on NAV or SYM
 would restore it. (QWE is unaffected; it has a real Tab at position 12.)
 
-**The second keyboard layout is unreachable.** `conf/keyboard.conf` sets
-`kb_layout = us,mn` with `kb_options = grp:caps_toggle`, so switching to the
-Mongolian layout requires Caps Lock — and there is no Caps Lock in any layer.
-Either add `&kp CAPS` (the BTL layer has free positions) or change `kb_options`
-to a chord this board can actually send.
+**Switching to the second keyboard layout.** `conf/keyboard.conf` sets
+`kb_layout = us,mn` with `kb_options = grp:caps_toggle`, so the switch is Caps
+Lock. That's [`CAPS` on NAV position 23](#2--nav--navigation--f-keys) — NAV thumb
+plus right pinky. It deliberately does *not* live on BTL: that layer is behind a
+two-thumb combo, which is far too slow for a key used this often.
 
 ### tmux
 
@@ -657,7 +662,7 @@ the right hand. Full list in
 [Host integration](#the-opposite-hand-rule-bites-host-shortcuts).
 
 **A shortcut does nothing at all, silently.** Either the key doesn't exist in any
-layer (`PRINT`, `CAPS`, the `XF86` laptop keys — see
+layer (`PRINT`, the `XF86` laptop keys — see
 [Keys no layer produces](#keys-no-layer-produces)), or the dispatcher is a no-op:
 `swapwindow` in particular does nothing on a floating window, or when there's no
 tiled window in that direction. `Alt+<arrow>` (`movefocus`) is the quick way to

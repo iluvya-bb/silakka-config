@@ -126,7 +126,10 @@
             // new (C-t) and close (C-w); reopen-closed (C-S-t) and the address
             // bar (C-l, on row 2) sit on the right. These are plain keycodes, so
             // they fire in any app, not just the browser.
-            &trans     &kp LC(T)    &kp LC(LS(TAB)) &kp LC(TAB) &kp LC(W)  &trans             &kp HOME  &kp PG_DN &kp PG_UP &kp END   &kp LC(LS(T)) &trans
+            // CAPS on the right pinky is the layout switch (kb_options=grp:caps_toggle
+            // makes it ISO_Next_Group). Shift+CAPS still gives real Caps Lock, and NAV
+            // binds Shift as a plain &kp at 24/28, so that chord stays cross-hand.
+            &trans     &kp LC(T)    &kp LC(LS(TAB)) &kp LC(TAB) &kp LC(W)  &trans             &kp HOME  &kp PG_DN &kp PG_UP &kp END   &kp LC(LS(T)) &kp CAPS
             // Shift is bound twice on purpose: the outer column keeps the old pinky
             // position, and index-finger 'U' now matches where Shift lives on DVO.
             // Leaving 'U' as &trans made it fall through to &hml LSHFT U, whose
